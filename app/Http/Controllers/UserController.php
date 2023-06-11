@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function getRoles($userId) {
+        $user = User::find($userId);
+        echo $user->name. " <br />";
+        $user->roles->each(function ($role) {
+            echo $role->role;
+        });
+        return;
+    }
+
     public function create(){
         User::create(
             array(
@@ -19,7 +29,7 @@ class UserController extends Controller
     }
     public function userShow(){
         $user = User::all()->toArray();
-        dump($user);
+        dump($user->role);
         return view('user',array('user'=>$user));
     }
 }
